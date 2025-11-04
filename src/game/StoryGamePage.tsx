@@ -1,5 +1,5 @@
 // src/pages/StoryGamePage.tsx
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { gameData, initialState } from "../game/gameData";
 import type { GameState, GameChoice } from "../game/types";
 import { useTypewriter } from "../hooks/useTypewriter"; // <-- 1. Import hook
@@ -29,6 +29,10 @@ const StoryGamePage: React.FC = () => {
   const [gameState, setGameState] = useState<GameState>(initialState);
   const [currentPassageId, setCurrentPassageId] = useState<string>("GioiThieu");
 
+  const sfxRef = useRef<HTMLAudioElement | null>(null);
+
+  const bgmRef = useRef<HTMLAudioElement | null>(null);
+
   const passage = gameData[currentPassageId];
 
   // ... (hàm goTo giữ nguyên)
@@ -54,6 +58,64 @@ const StoryGamePage: React.FC = () => {
     }
   }, [currentPassageId]);
 
+useEffect(() => {
+    if (!bgmRef.current && passage.id === "Ngay1DiCho") {
+      
+      console.log("Bắt đầu phát nhạc nền (BGM)..."); 
+      const bgmUrl = "/game/assets/audio/nhacnen.mp3";
+      const audio = new Audio(bgmUrl);
+
+      audio.loop = true; // <-- Tự động lặp lại
+      audio.volume = 0.15; // <-- Âm lượng nhỏ
+
+      audio.play().catch((e) => console.error("BGM playback failed:", e));
+
+      bgmRef.current = audio;
+    }
+
+    if (passage.id === "GioiThieu" && bgmRef.current) {
+      console.log("Dừng nhạc nền khi chơi lại...");
+      bgmRef.current.pause();
+      bgmRef.current = null;
+    }
+
+  }, [passage]);
+
+ useEffect(() => {
+    // THAY ĐỔI 1: Lấy cả object 'sound'
+    const newSound = passage?.sound;
+    
+    // Lấy URL của âm thanh đang phát (nếu có)
+    const currentSoundUrl = sfxRef.current ? sfxRef.current.src : null;
+
+    // THAY ĐỔI 2: Kiểm tra 'newSound.url'
+    // Nếu có âm thanh mới VÀ url của nó khác âm thanh cũ
+    if (newSound && newSound.url !== currentSoundUrl) {
+      // Dừng âm thanh cũ (nếu có)
+      if (sfxRef.current) {
+        sfxRef.current.pause();
+      }
+
+      // THAY ĐỔI 3: Dùng 'newSound.url'
+      const audio = new Audio(newSound.url);
+      audio.loop = true; 
+
+      // THAY ĐỔI 4: Dùng 'newSound.volume' (hoặc 1.0 nếu không set)
+      // (Toán tử '??' nghĩa là: nếu newSound.volume là null/undefined, dùng 1.0)
+      audio.volume = newSound.volume ?? 1.0;
+
+      audio.play().catch((e) => console.error("SFX playback failed:", e));
+
+      sfxRef.current = audio;
+
+    // THAY ĐỔI 5: Kiểm tra 'newSound'
+    } else if (!newSound && sfxRef.current) {
+      // Nếu passage mới KHÔNG có 'sound', dừng âm thanh cũ
+      sfxRef.current.pause();
+      sfxRef.current = null;
+    }
+  }, [passage]);
+  
   const handleSelectChoice = (choice: GameChoice) => {
     if (choice.onChoose) {
       setGameState(choice.onChoose(gameState));
@@ -91,13 +153,13 @@ const StoryGamePage: React.FC = () => {
         backgroundAttachment: "fixed",
       }}
     >
-      <div className="absolute inset-0 bg-black/70 z-10" />
+      <div className="absolute inset-0 bg-black/10 z-10" />
 
       {/* 4. THÊM NÚT SKIP */}
       {isTyping && (
         <button
           onClick={skip}
-          className="absolute top-28 right-4 z-30 bg-white/20 text-white px-3 py-1 rounded-md text-sm backdrop-blur-sm hover:bg-white/40 transition"
+          className="absolute top-28 right-4 z-30 bg-black/90 text-white px-3 py-1 rounded-md text-sm backdrop-blur-sm hover:bg-black/30 transition"
         >
           Bỏ qua (Skip) »
         </button>
@@ -114,7 +176,7 @@ const StoryGamePage: React.FC = () => {
 
         {/* 5. SỬ DỤNG DISPLAYEDHTML */}
         <div
-          className="prose prose-invert prose-lg text-inherit"
+  className="story-text font-['Special_Elite'] text-[1px] md:text-[22px] text-white leading-relaxed tracking-wide"
           dangerouslySetInnerHTML={{ __html: displayedHtml }}
         />
 
@@ -126,7 +188,7 @@ const StoryGamePage: React.FC = () => {
                 key={choice.text}
                 onClick={() => handleSelectChoice(choice)}
                 className="block w-full text-left p-3 text-lg text-yellow-400 font-['Anton',_sans-serif] uppercase tracking-wider
-                           transition-all duration-200 hover:bg-white/10 hover:text-white rounded"
+                           transition-all duration-200 hover:bg-white/30 hover:text-white rounded"
               >
                 {choice.text}
               </button>

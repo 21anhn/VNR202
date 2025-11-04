@@ -4,7 +4,7 @@ import type { GameData, GameState } from "./types";
 // Đây là state khởi tạo (từ passage "Bắt đầu")
 export const initialState: GameState = {
   ngay: 1,
-  gao: 10,
+  gao: 5,
   thit: 0,
   rau: 1,
   luong: 30,
@@ -14,6 +14,12 @@ export const initialState: GameState = {
   tinh_cam_hang_xom: 5,
   co_sam_xe: false,
   tang_gia: false,
+};
+
+const sounds = {
+  cho: "/game/assets/audio/cho.mp3",
+  tieng_loa_phuong: "/game/assets/audio/daitiengnoiVietNam.mp3",
+  toi: "/game/assets/audio/toi.mp3",
 };
 
 // Đây là toàn bộ các passages đã được "dịch"
@@ -36,6 +42,9 @@ export const gameData: GameData = {
         nextId: "SangNgayMoi", // Passage "Bắt đầu" trong Twine chỉ set state rồi goto "SangNgayMoi"
       },
     ],
+    onLoad: (state) => {
+      return state;
+    },
   },
   SangNgayMoi: {
     id: "SangNgayMoi",
@@ -70,7 +79,11 @@ export const gameData: GameData = {
   Ngay1Sang: {
     id: "Ngay1Sang",
     tag: "khu-tap-the",
-    imageUrl: "/game/assets/img/loaphuong.jpg", // Lấy từ file HTML
+    imageUrl: "/game/assets/img/loaphuong.jpg", 
+    sound: {
+      url: sounds.tieng_loa_phuong,
+      volume: 0.5,
+    },
     text: (state) => `
       <h1>Ngày 1</h1>
       <p>Trời vừa hửng sáng ngày 1. Tiếng loa phường rè rè, phá tan sự tĩnh lặng của khu tập thể.</p>
@@ -85,6 +98,9 @@ export const gameData: GameData = {
   Ngay1DiCho: {
     id: "Ngay1DiCho",
     tag: "cho",
+    sound: {
+      url: sounds.cho,
+    },
     text: () => `
       <h1>Ngày 1</h1>
       <p>6 giờ sáng, dòng người đã dài dằng dặc. Bạn là người thứ 81. Bạn kiên nhẫn chờ...</p>
@@ -105,7 +121,6 @@ export const gameData: GameData = {
       {
         text: "Bỏ về, không mua nữa",
         nextId: "Ngay1Chieu",
-        condition: () => state.tem_thit <= 0, // Hiện nếu hết tem
       },
     ],
   },
@@ -113,6 +128,9 @@ export const gameData: GameData = {
     id: "MuaThitTemPhieu",
     tag: "cho",
     imageUrl: "/game/assets/img/temthit.jpg",
+    sound: {
+      url: sounds.cho,
+    },
     text: () => `
       <h1>Ngày 1</h1>
       <p>"0.5kg thịt, tiêu chuẩn tháng này." - Bạn chìa tem phiếu ra. Cô mậu dịch viên đóng dấu "CỘP", xé cái tem.</p>
@@ -134,6 +152,9 @@ export const gameData: GameData = {
   MuaThitChoDen: {
     id: "MuaThitChoDen",
     tag: "cho-den-thit",
+    sound: {
+      url: sounds.cho,
+    },
     text: () => `
       <h1>Ngày 1</h1>
       <p>Bạn rỉ tai: "Chị có... "hàng ngoài" không? Em mua giá cao."</p>
@@ -203,6 +224,9 @@ export const gameData: GameData = {
   Ngay1Toi: {
     id: "Ngay1Toi",
     tag: "buoi-toi-1",
+    sound: {
+      url: sounds.toi,
+    },
     text: (state) => `
       <h1>Ngày 1</h1>
       <p>Buổi tối. Cả nhà quây quần.</p>
@@ -219,7 +243,7 @@ export const gameData: GameData = {
       { text: "Từ chối khéo", nextId: "TuChoiVayGao" },
     ],
     // Logic (if: $thit > 0) được xử lý ngay khi load passage
-    onLoad: (state) => {
+    onLoad: (state, goTo) => {
       if (state.thit > 0) {
         return {
           ...state,
@@ -227,12 +251,15 @@ export const gameData: GameData = {
           suc_khoe_con: state.suc_khoe_con + 5,
         };
       }
-      return { ...state, suc_khoe_con: state.suc_khoe_con - 5 };
+      return { ...state, suc_khoe_con: state.suc_khoe_con - 5, gao: state.gao - 1,};
     },
   },
   ChoVayGao: {
     id: "ChoVayGao",
     tag: "buoi-toi-1",
+    sound: {
+      url: sounds.toi,
+    },
     text: () =>
       `<h1>Ngày 1</h1><p>"Bác cứ cầm lấy." - Bạn đong 1kg gạo đưa cho bác.</p><p>"Cảm ơn gia đình, tôi mang ơn anh chị." - Bác Toàn cảm kích.</p>`,
     choices: () => [{ text: "Qua ngày mới", nextId: "Ngay1KetThuc" }],
@@ -245,6 +272,9 @@ export const gameData: GameData = {
   TuChoiVayGao: {
     id: "TuChoiVayGao",
     tag: "buoi-toi-1",
+    sound: {
+      url: sounds.toi,
+    },
     text: () =>
       `<h1>Ngày 1</h1><p>"Nhà em cũng eo hẹp lắm bác ạ, con đang tuổi ăn..."</p><p>Bác Toàn thở dài, lủi thủi đi về.</p>`,
     choices: () => [{ text: "Qua ngày mới", nextId: "Ngay1KetThuc" }],
@@ -256,6 +286,9 @@ export const gameData: GameData = {
   Ngay1KetThuc: {
     id: "Ngay1KetThuc",
     tag: "buoi-toi-1",
+    sound: {
+      url: sounds.toi,
+    },
     text: (state) => `
       <h1>Ngày 1</h1>
       <p>Kết thúc ngày 1.</p>
@@ -304,6 +337,9 @@ export const gameData: GameData = {
   MuaThuocChoDen: {
     id: "MuaThuocChoDen",
     tag: "cho-den",
+    sound: {
+      url: sounds.cho,
+    },
     text: () =>
       `<h1>Ngày 2</h1><p>Bạn chạy ra chợ đen, nghiến răng mua vỉ thuốc Tetracyclin.</p><p>Con uống thuốc, hạ sốt, nhưng bạn mất một khoản tiền lớn.</p>`,
     choices: () => [{ text: "Về nhà lo bữa trưa", nextId: "Ngay2Chieu" }],
@@ -319,7 +355,7 @@ export const gameData: GameData = {
     text: () =>
       `<h1>Ngày 2</h1><p>Bạn hái lá, đánh gió cho con. Đứa trẻ khóc thét lên. Sốt không giảm.</p><p>Bạn lo lắng không yên.</p>`,
     choices: () => [{ text: "Về nhà lo bữa trưa", nextId: "Ngay2Chieu" }],
-    onLoad: (state) => ({ ...state, suc_khoe_con: state.suc_khoe_con - 10 }),
+    onLoad: (state) => ({ ...state, suc_khoe_con: state.suc_khoe_con - 30 }),
   },
   Ngay2Chieu: {
     id: "Ngay2Chieu",
@@ -348,7 +384,7 @@ export const gameData: GameData = {
       ...state,
       tem_vai: 0,
       luong: state.luong - 5,
-      suc_khoe_con: state.suc_khoe_con - 5,
+      suc_khoe_con: state.suc_khoe_con - 30,
     }),
   },
   ONhaChamCon: {
@@ -362,6 +398,9 @@ export const gameData: GameData = {
   Ngay2Toi: {
     id: "Ngay2Toi",
     tag: "con-khoe",
+    sound: {
+      url: sounds.toi,
+    },
     text: (state) => `
       <h1>Ngày 2</h1>
       <p>Bữa tối ngày 2.</p>
@@ -387,6 +426,9 @@ export const gameData: GameData = {
   TangGia: {
     id: "TangGia",
     tag: "vuon-rau",
+    sound: {
+      url: sounds.toi,
+    },
     text: () =>
       `<h1>Ngày 2</h1><p>Bạn cặm cụi cuốc đất dưới ánh trăng mờ.</p><p>"Hi vọng mớ rau mầm này sớm mọc."</p>`,
     choices: () => [{ text: "Qua ngày mới", nextId: "Ngay2KetThuc" }],
@@ -395,6 +437,9 @@ export const gameData: GameData = {
   NghiNgoi: {
     id: "NghiNgoi",
     tag: "buoi-toi-2",
+    sound: {
+      url: sounds.toi,
+    },
     text: () =>
       `<h1>Ngày 2</h1><p>Bạn quá mệt mỏi sau một ngày. Bạn quyết định đi ngủ sớm.</p>`,
     choices: () => [{ text: "Qua ngày mới", nextId: "Ngay2KetThuc" }],
@@ -403,6 +448,9 @@ export const gameData: GameData = {
   Ngay2KetThuc: {
     id: "Ngay2KetThuc",
     tag: "buoi-toi-2",
+    sound: {
+      url: sounds.toi,
+    },
     text: (state) => `
       <h1>Ngày 2</h1>
       <p>Kết thúc ngày 2.</p>
@@ -496,6 +544,9 @@ export const gameData: GameData = {
   Ngay3Toi: {
     id: "Ngay3Toi",
     tag: "buoi-toi-3",
+    sound: {
+      url: sounds.toi,
+    },
     text: (state) => `
       <h1>Ngày 3</h1>
       <p>Bữa tối cuối cùng. Nhờ có quà ở quê, bữa cơm thịnh soạn hơn hẳn.</p>
@@ -514,6 +565,7 @@ export const gameData: GameData = {
       ...state,
       thit: 0,
       rau: state.tang_gia ? state.rau + 1 : state.rau,
+      gao: state.gao - 0.5,
       ngay: state.ngay + 1, // Chuyển sang ngày 4 để kích hoạt kết thúc
     }),
   },
@@ -548,7 +600,7 @@ export const gameData: GameData = {
     },
     choices: () => [{ text: "Chơi lại từ đầu", nextId: "GioiThieu" }],
     // Khi chơi lại, chúng ta sẽ reset state
-    onLoad: (state) => {
+    onLoad: (state, goTo) => {
       // Logic kết thúc đã nằm trong text, không cần làm gì thêm ở đây
       return state;
     },
