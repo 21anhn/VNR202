@@ -219,8 +219,7 @@ export const gameData: GameData = {
       { text: "Từ chối khéo", nextId: "TuChoiVayGao" },
     ],
     // Logic (if: $thit > 0) được xử lý ngay khi load passage
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    onLoad: (state, goTo) => {
+    onLoad: (state) => {
       if (state.thit > 0) {
         return {
           ...state,
@@ -549,8 +548,7 @@ export const gameData: GameData = {
     },
     choices: () => [{ text: "Chơi lại từ đầu", nextId: "GioiThieu" }],
     // Khi chơi lại, chúng ta sẽ reset state
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    onLoad: (state, goTo) => {
+    onLoad: (state) => {
       // Logic kết thúc đã nằm trong text, không cần làm gì thêm ở đây
       return state;
     },
