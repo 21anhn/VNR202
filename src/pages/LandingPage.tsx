@@ -17,7 +17,7 @@ const LandingPage: React.FC = () => {
     if (step < introSteps.length - 1) {
       setStep(step + 1);
     } else {
-      navigate("/intro");
+      navigate("/game");
     }
   };
 
@@ -87,7 +87,7 @@ const LandingPage: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              Chào mừng đến với môn Tư tưởng Hồ Chí Minh
+              Chào mừng đến với môn học VNR202
             </motion.h1>
             <motion.p
               className="text-lg md:text-2xl text-white/90 mb-8 font-medium drop-shadow"
@@ -95,7 +95,7 @@ const LandingPage: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              Khám phá nền tảng tư tưởng cách mạng của Chủ tịch Hồ Chí Minh
+              Khám phá về thời bao cấp ở miền bắc Việt
             </motion.p>
             <motion.button
               onClick={handleStart}
