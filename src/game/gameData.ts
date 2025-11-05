@@ -580,10 +580,10 @@ export const gameData: GameData = {
     tag: "tong-ket",
     text: (state) => {
       let ketluan = "";
-      if (state.gao > 10 && state.luong > 20 && state.suc_khoe_con > 90) {
+      if (state.gao >= 2 && state.luong > 10 && state.suc_khoe_con > 90) {
         ketluan =
           'Bạn đúng là một người "biết lo". Gia đình bạn không chỉ sống sót mà còn sống rất tốt!';
-      } else if (state.gao > 5 && state.luong > 10) {
+      } else if (state.gao > 1 && state.luong > 5) {
         ketluan =
           "Bạn đã xoay xở rất khéo léo. Gia đình đã vượt qua khó khăn một cách an toàn.";
       } else {
