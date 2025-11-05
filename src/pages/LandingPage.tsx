@@ -10,7 +10,7 @@ const LandingPage: React.FC = () => {
   const navigate = useNavigate();
 
   const handleStart = () => {
-    navigate("/game");
+    navigate("/game-storytelling");
   };
 
   return (

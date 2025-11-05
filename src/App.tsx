@@ -19,7 +19,10 @@ function App() {
               <Route path="/chatbot" element={<ChatbotPage />} />
               <Route path="/ai-usage" element={<CaseStudyPage />} />
               <Route path="/qa" element={<QAPage />} />
-              <Route path="/game" element={<StoryGamePage />} />{" "}
+              <Route
+                path="/game-storytelling"
+                element={<StoryGamePage />}
+              />{" "}
               {/* <-- Thêm dòng này */}{" "}
             </Routes>
           </div>
