@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
-import IntroPage from "./pages/IntroPage";
 import ChatbotPage from "./pages/ChatbotPage";
 import CaseStudyPage from "./pages/CaseStudyPage";
 import Header from "./components/Header";
@@ -17,7 +16,6 @@ function App() {
           <div className="w-full flex-1 flex flex-col">
             <Routes>
               <Route path="/" element={<LandingPage />} />
-              <Route path="/intro" element={<IntroPage />} />
               <Route path="/chatbot" element={<ChatbotPage />} />
               <Route path="/ai-usage" element={<CaseStudyPage />} />
               <Route path="/qa" element={<QAPage />} />
