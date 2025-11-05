@@ -5,7 +5,6 @@ import Logo from "../../public/logo.webp";
 
 const menu = [
   { label: "Home", to: "/intro" },
-  { label: "Quiz", to: "/quiz" },
   { label: "Chatbot", to: "/chatbot" },
   { label: "AI Usage", to: "/ai-usage" },
   { label: "Q&A", to: "/qa" }, // Thêm Q & A vào menu

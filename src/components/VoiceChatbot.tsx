@@ -49,12 +49,12 @@ const VoiceChatbot: React.FC = () => {
   };
 
   const baseGuidelines = `
-Bạn là trợ lý học thuật cho *môn Tư tưởng Hồ Chí Minh*. 
-• Cơ sở tham chiếu chính: **Giáo trình Tư tưởng Hồ Chí Minh 2019**.
-• Nếu câu hỏi nằm ngoài giáo trình, hãy trả lời ngắn gọn theo kiến thức nền tảng, và nói rõ là “nội dung ngoài giáo trình”. Nếu không chắc chắn thì nói “mình chưa có đủ căn cứ trong giáo trình”.
-• Không bịa đặt, không suy diễn quá mức, không đưa số liệu/ trích dẫn nếu không chắc chắn.
-• Trả lời hoàn toàn bằng **tiếng Việt**, ưu tiên **ngắn gọn – súc tích – dễ hiểu**, dùng **Markdown** gọn gàng.
-• Luôn cố gắng chỉ rõ **Chương/Mục** trong giáo trình khi có thể (ví dụ: “Xem Chương 1, mục 1.2”).
+Bạn là trợ lý học thuật cho *môn Lịch sử Đảng Cộng sản Việt Nam*.  
+• Cơ sở tham chiếu chính: **Giáo trình Lịch sử Đảng Cộng sản Việt Nam (bản Hà Nội, 9-2019)**.  
+• Nếu câu hỏi nằm ngoài giáo trình, hãy trả lời ngắn gọn theo kiến thức nền tảng, và nói rõ là “nội dung ngoài giáo trình”. Nếu không chắc chắn thì nói “mình chưa có đủ căn cứ trong giáo trình”.  
+• Không bịa đặt, không suy diễn quá mức, không đưa số liệu/ trích dẫn nếu không chắc chắn.  
+• Trả lời hoàn toàn bằng **tiếng Việt**, ưu tiên **ngắn gọn – súc tích – dễ hiểu**, dùng **Markdown** gọn gàng.  
+• Luôn cố gắng chỉ rõ **Chương/Mục** trong giáo trình khi có thể (ví dụ: “Xem Chương 2, mục 2.3”).  
 `;
 
   const textModeInstruction = `
@@ -128,11 +128,10 @@ ${input}
         transition={{ duration: 0.7, delay: 0.2 }}
       >
         <h2 className="text-2xl font-bold mb-1 text-gray-800 text-center">
-          Chatbot AI – Tư tưởng Hồ Chí Minh
+          Chatbot AI
         </h2>
         <p className="text-center text-gray-500 text-sm mb-4">
-          Ưu tiên trả lời theo <i>Giáo trình Tư tưởng Hồ Chí Minh</i>; có thể
-          nêu rõ Chương/Mục khi trích dẫn.
+          Ưu tiên trả lời theo <i>Lịch sử Đảng Cộng Sản Việt Nam</i>
         </p>
 
         <div className="flex gap-4 mb-6 justify-center">
@@ -165,7 +164,7 @@ ${input}
             <>
               {messages.length === 0 && (
                 <div className="text-gray-500 text-center mt-12 text-base select-none">
-                  Hãy hỏi bất kỳ điều gì về môn Tư tưởng Hồ Chí Minh!
+                  Hãy hỏi bất kỳ điều gì về môn Lịch sử Đảng cộng sản Việt Nam!
                 </div>
               )}
               {messages.map((msg, idx) => (
@@ -280,6 +279,10 @@ ${input}
             )}
           </button>
         </div>
+        <p className="text-center text-xs text-gray-400 mt-3 italic">
+          Thông tin do chatbot cung cấp chỉ mang tính tham khảo, có thể cần được
+          kiểm chứng — vui lòng không tin tưởng 100%.
+        </p>
       </motion.div>
 
       <AnimatePresence>

@@ -6,34 +6,14 @@ import { ChevronDown } from "lucide-react";
 
 const aiApplications = [
   {
-    title: "Sinh bộ Quiz theo đề cương học phần",
-    content:
-      "AI tạo nhanh 15+ câu trắc nghiệm kèm gợi ý và giải thích, bao phủ các chủ đề: cơ sở hình thành tư tưởng Hồ Chí Minh; độc lập dân tộc gắn liền CNXH; đại đoàn kết toàn dân tộc; xây dựng Đảng & Nhà nước; đạo đức cách mạng; vận dụng thực tiễn và liên hệ hiện nay.",
-  },
-  {
     title: "Chatbot hỏi–đáp giáo trình & văn kiện",
     content:
-      "Chatbot hỗ trợ tra cứu khái niệm, luận điểm then chốt và trích dẫn tiêu biểu (như “cần, kiệm, liêm, chính, chí công vô tư”, “giặc nội xâm”); có thể trả lời dạng văn bản và giọng nói (Text-to-Speech) để tăng tương tác tự học.",
+      "Chatbot dựa trên Gemini + ChatGPT giúp tra cứu khái niệm, luận điểm, trích dẫn tiêu biểu; có thể trả lời văn bản và giọng nói (Text-to-Speech) để tăng trải nghiệm tự học.",
   },
   {
-    title: "Tóm tắt & bản đồ khái niệm chương mục",
+    title: "Storytelling & minh họa hình ảnh",
     content:
-      "AI giúp tóm tắt mỗi chương, tạo “mind map/logic map” thể hiện mối liên hệ giữa các luận điểm: từ mục tiêu độc lập dân tộc gắn CNXH đến phương thức thực hiện qua đại đoàn kết, xây dựng Đảng trong sạch, Nhà nước của dân, do dân, vì dân.",
-  },
-  {
-    title: "Phân tích đạo đức cách mạng & tự rèn luyện",
-    content:
-      "Tạo checklist tự đánh giá theo các phẩm chất: cần–kiệm–liêm–chính–chí công vô tư; cơ chế nhắc nhở thói quen tốt; gợi ý tình huống/ví dụ thực tế để người học luyện phản biện và liên hệ bản thân.",
-  },
-  {
-    title: "Vận dụng vào thực tiễn hiện nay",
-    content:
-      "Gợi ý tình huống học thuật/thực tiễn (chống tham nhũng, nêu gương cán bộ, phát huy dân chủ, đoàn kết quốc tế) để người học áp dụng phương pháp tư duy và nguyên tắc của tư tưởng Hồ Chí Minh vào bối cảnh đổi mới.",
-  },
-  {
-    title: "Cá nhân hóa lộ trình ôn tập",
-    content:
-      "Theo dõi kết quả làm quiz để đề xuất phần đọc bổ sung, flashcards trọng tâm từng mục (đại đoàn kết, vai trò Đảng, Nhà nước pháp quyền XHCN), giúp ôn thi hiệu quả và có hệ thống.",
+      "Sử dụng Gemini để generate hình ảnh minh họa cho các câu chuyện, giúp người học dễ hình dung nội dung và liên hệ thực tiễn.",
   },
 ];
 
@@ -47,7 +27,8 @@ const ExampleAccordion: React.FC = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.7 }}
       >
-        Ứng dụng AI trong môn Tư tưởng Hồ Chí Minh
+        Ứng dụng AI trong phát triển nội dung môn Lịch sử Đảng cộng sản Việt Nam
+        (VNR202)
       </motion.h2>
       <motion.p
         className="text-sm md:text-base text-gray-600 mb-7 text-center italic"
@@ -56,7 +37,9 @@ const ExampleAccordion: React.FC = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.7, delay: 0.2 }}
       >
-        *Nội dung bám sát đề cương và giáo trình môn Tư tưởng Hồ Chí Minh.*
+        *Sử dụng AI (Gemini + ChatGPT) để tạo chatbot, tóm tắt chương mục, và
+        Gemini để generate hình ảnh minh họa trong storytelling. Nội dung bám
+        sát đề cương và giáo trình môn học.*
       </motion.p>
       <Accordion.Root
         type="single"
