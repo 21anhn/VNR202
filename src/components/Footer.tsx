@@ -32,7 +32,6 @@ const socials = [
 
 const quickLinks = [
   { name: "Trang chủ", href: "/" },
-  { name: "Quiz", href: "/quiz" },
   { name: "Chatbot", href: "/chatbot" },
   { name: "AI Usage", href: "/ai-usage" },
 ];
