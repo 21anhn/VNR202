@@ -42,10 +42,10 @@ const Footer: React.FC = () => {
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center md:items-start justify-between gap-8">
         <div className="mb-4 md:mb-0 flex flex-col items-center md:items-start">
           <span className="text-2xl font-extrabold mb-2 tracking-wide text-[#2a2e6e] drop-shadow-lg">
-            HCM202
+            VNR202
           </span>
           <span className="text-sm text-[#3a3f8f]/70">
-            © {new Date().getFullYear()} HCM202 - SE1725. All rights reserved.
+            © {new Date().getFullYear()} VNR202 - EL1805. All rights reserved.
           </span>
         </div>
         <div className="flex flex-col items-center gap-2">
