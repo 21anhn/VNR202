@@ -42,6 +42,10 @@ export interface GamePassage {
   ) => GameState;
   // Hình ảnh nội dung (nếu có)
   imageUrl?: string;
+  sound?: {
+    url: string;
+    volume?: number; 
+  };
 }
 
 // 4. Định nghĩa toàn bộ dữ liệu game

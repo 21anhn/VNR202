@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.story-text p {
+  margin-bottom: 1rem; 
+}
+
+.story-text h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.4em;
+}
+.story-text p {
+  text-align: justify;
+}
