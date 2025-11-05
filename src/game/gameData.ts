@@ -79,7 +79,7 @@ export const gameData: GameData = {
   Ngay1Sang: {
     id: "Ngay1Sang",
     tag: "khu-tap-the",
-    imageUrl: "/game/assets/img/loaphuong.jpg", 
+    imageUrl: "/game/assets/img/loaphuong.jpg",
     sound: {
       url: sounds.tieng_loa_phuong,
       volume: 0.5,
@@ -243,7 +243,7 @@ export const gameData: GameData = {
       { text: "Từ chối khéo", nextId: "TuChoiVayGao" },
     ],
     // Logic (if: $thit > 0) được xử lý ngay khi load passage
-    onLoad: (state, goTo) => {
+    onLoad: (state) => {
       if (state.thit > 0) {
         return {
           ...state,
@@ -251,7 +251,11 @@ export const gameData: GameData = {
           suc_khoe_con: state.suc_khoe_con + 5,
         };
       }
-      return { ...state, suc_khoe_con: state.suc_khoe_con - 5, gao: state.gao - 1,};
+      return {
+        ...state,
+        suc_khoe_con: state.suc_khoe_con - 5,
+        gao: state.gao - 1,
+      };
     },
   },
   ChoVayGao: {
@@ -600,7 +604,7 @@ export const gameData: GameData = {
     },
     choices: () => [{ text: "Chơi lại từ đầu", nextId: "GioiThieu" }],
     // Khi chơi lại, chúng ta sẽ reset state
-    onLoad: (state, goTo) => {
+    onLoad: (state) => {
       // Logic kết thúc đã nằm trong text, không cần làm gì thêm ở đây
       return state;
     },
